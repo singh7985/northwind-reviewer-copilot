@@ -1,0 +1,4 @@
+# Placeholder so the directory exists for the Docker build (the backend
+# Dockerfile copies `data/` into the image). The `data/employees.json`
+# seed file is written here at runtime by services/seed.py if it doesn't
+# already exist; nothing in this directory is required to be committed.
