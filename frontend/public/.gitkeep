@@ -1,0 +1,4 @@
+# Placeholder so the directory exists for the Docker build (the frontend
+# Dockerfile copies `/app/public` from the builder stage). Next.js does not
+# require any files in here; this exists only to make `COPY public ./public`
+# succeed in environments that strip empty directories.
