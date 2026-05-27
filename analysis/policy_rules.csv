@@ -1,0 +1,39 @@
+doc_id,clause,rule_summary,exact_threshold,required_evidence,exceptions,non_reimbursable_conditions
+TEP-001,§3.1,Every reimbursable expense must have a clear documented business purpose,N/A,Trip purpose + employee context on submission,None,Personal expenses are never reimbursable
+TEP-001,§3.2,Expenses must be reasonable necessary and incurred at the lowest practical cost,N/A — judgment-based reasonableness,Receipt + business context,Documented business need for higher-cost option,Expenses that exceed lowest reasonable cost without justification
+TEP-001,§3.3,All expenses must be supported by original itemized receipts (per TEP-007),Itemized receipt required,Original itemized receipt,(TEP-007 carves $25 waiver — but TEP-007 is NOT in corpus),Missing receipt without applicable waiver
+TEP-001,§3.4,Expense reports must be submitted within 30 days of trip end,30 days (60 with VP exception),Submission date,VP-level exception for 30–60 day window,Anything > 60 days post-incurred
+TEP-001,§4.1–4.3,Approval thresholds by amount,"≤$1,000 manager · $1,000–$5,000 Director · >$5,000 VP",Approver signature/email,None,Submission exceeding amount without correct-grade approval
+TEP-001,§4.4,Approval thresholds are cumulative per submission,Per-submission total not per line,Sum of submission,None,Splitting submissions to evade thresholds
+TEP-001,§7,Exceptions require CFO written approval before incurring,Pre-approval required,Written approval,Genuine emergencies (retroactive strongly discouraged),Retroactive exception requests in non-emergency cases
+TEP-005,§2.1,Economy is the default for domestic and short-haul international flights,Economy required,Flight class from receipt,None,Higher class on domestic flight without §2.2/2.3 trigger
+TEP-005,§2.2,Premium economy permitted on single segments ≥6h,Segment duration ≥6h,Flight duration on receipt,None — no extra approval needed if duration met,Premium economy on segment <6h without approval
+TEP-005,§2.3,Business class permitted only on international segments ≥10h with prior VP approval,Duration ≥10h international + VP approval,Flight duration + written VP approval,None,Business class on segment <10h OR without VP approval OR domestic
+TEP-005,§2.4,First class is not reimbursable under any circumstances,Absolute prohibition,Class of service,NONE,First class always rejected
+TEP-005,§3.1,Flights should be booked through Concur Travel whenever practical,Concur booking,Booking source on itinerary,Where Concur is impractical (documented),(Soft — not by itself a reject)
+TEP-005,§3.2,Bookings ≥14 days ahead; <7 days requires manager approval,14 days lead time; <7 needs manager approval,Booking date vs travel date,Documented urgent business need with manager approval,Last-minute booking with no manager approval
+TEP-005,§3.3,Lowest reasonable fare — direct flights preferred if price diff <$200,Direct preferred when surcharge <$200,Fare comparison,Schedule/red-eye/late-night constraints,Higher fare with no justification
+TEP-005,§4.1,First checked bag reimbursable; second requires manager approval,1st bag free; 2nd needs approval,Bag-fee line on receipt,Documented business need,Second bag without manager approval
+TEP-005,§4.2,Extra-legroom seats reimbursable on flights ≥4h or documented accommodation,Flight ≥4h OR accommodation,Seat-fee line + flight duration,Documented accommodation need,Extra-legroom on <4h flight without accommodation
+TEP-005,§4.3,Change/cancellation fees reimbursable when for documented business reason,Documented business reason,Note from employee,N/A,Change fees for personal preference
+TEP-005,§4.4,In-flight Wi-Fi reimbursable if used for business,Business use,Self-attestation,N/A,Personal-use Wi-Fi
+TEP-005,§5.2,Employees may not select higher-cost flights solely to accumulate miles,Lowest reasonable fare governs,Fare comparison,N/A,Higher-cost selection for miles
+TEP-005,§6.1,Companion travel costs are never reimbursable,Always reject,Itinerary,NONE,Any spouse/family/companion fare
+TEP-005,§6.2,Personal extension reimburses only what business-only fare would have cost,Comparison quote required,Comparison quote at booking time,N/A,Personal-extension fare without comparison quote
+TEP-009,§2,Employee grade ladder defines approval authority,"G3 ≤$500 · G4 ≤$1,000 · G5 ≤$2,000 · G6 ≤$3,000 · G7 ≤$5,000 · G8 ≤$10,000 · G9 ≤$25,000 · G10 unlimited",Employee grade,Acting capacity §5,Approver lacking authority for amount
+TEP-009,§3.2,VP approval = Grade 9 or above,Grade ≥9,Grade of approver,N/A,Grade-8-and-below approving where VP required
+TEP-009,§4.1,Grade does not change per-diem or lodging tier caps,Caps are uniform regardless of grade,N/A,N/A,Claiming higher cap based on grade
+TEP-009,§5,Acting capacity must be formally designated in writing,Written designation by absent manager's manager,Written designation memo,N/A,Self-designated acting authority
+TEP-013,§2.1,All international travel requires advance VP (Grade 9+) written approval,Pre-trip written VP approval,Approval email/document,None — VP approval is mandatory,International travel without VP approval
+TEP-013,§2.2,Approval requests should be submitted ≥14 days before departure,14-day lead time,Approval date vs departure,Last-minute travel where business required,(Soft — not by itself a reject)
+TEP-013,§3.2,Travel to OFAC-sanctioned countries is prohibited absent OFAC license,Absolute prohibition,Country + OFAC license check,OFAC license,Any travel to sanctioned destination without license
+TEP-013,§4.1–4.2,International destinations not in tier 1–3 fall under Tier 4 with cap set at approval; reference State Dept M&IE,Tier 4 cap set per trip,Approval memo with cap,N/A,Exceeding the per-trip Tier-4 cap
+TEP-013,§5.2,International per-diem may be elected for trips ≥3 nights,3-night minimum,Trip dates,N/A,Per-diem election on trip <3 nights
+TEP-013,§6.1–6.2,Business class on international segments ≥10h with VP approval; premium economy default ≥6h,Same as TEP-005 §2.2/2.3,Flight duration + approval,Same as TEP-005,Same as TEP-005
+TEP-013,§6.3,Personal stopovers at employee expense with comparison quote,Comparison quote required,Comparison quote,N/A,Personal stopover without comparison quote
+TEP-013,§7.1–7.2,Foreign-currency expenses reported in USD at transaction-date rate; FX fees reimbursable as separate line,Corporate Card rate or OANDA daily,Card-statement FX rate or OANDA reference,N/A,FX fees bundled into underlying expense
+TEP-013,§7.3,Cash advances require advance Finance approval and limited amounts,Pre-approval; capped,Finance approval memo,N/A,Cash advance without pre-approval
+TEP-013,§8.1,Visa fees / courier / required immunizations reimbursable at actual cost,Actual cost,Receipt,N/A,N/A
+TEP-013,§8.2,Passport fees not reimbursable unless required solely for a specific business trip (VP approval),VP approval + business-only need,VP approval memo,Rare case where passport solely for the trip,Passport fee without applicable VP approval
+TEP-013,§9,Alcohol policy applies internationally with stricter local-law overlay (TEP-003 §6),Local law controls if stricter,Local-law context,N/A,Alcohol where local law restricts it (regardless of TEP-003)
+TEP-013,§10,Dependent/companion costs on international trips never reimbursable,Absolute prohibition,Itinerary,NONE,Any companion expense

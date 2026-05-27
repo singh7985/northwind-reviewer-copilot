@@ -1,0 +1,55 @@
+# Production stack: db + backend + frontend, single command.
+#
+#   docker compose -f docker-compose.prod.yml up --build
+#
+# Optionally:
+#   OPENAI_API_KEY=sk-... docker compose -f docker-compose.prod.yml up --build
+#
+# Without an OPENAI_API_KEY the system runs in deterministic-only mode and the
+# offline fallbacks for extraction / adjudication / Q&A are exercised.
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: northwind
+      POSTGRES_PASSWORD: northwind
+      POSTGRES_DB: northwind
+    volumes:
+      - northwind_pgdata_prod:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U northwind"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://northwind:northwind@db:5432/northwind
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      CORS_ORIGINS: "http://localhost:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE: http://localhost:8000
+    environment:
+      NEXT_PUBLIC_API_BASE: http://localhost:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+
+volumes:
+  northwind_pgdata_prod:

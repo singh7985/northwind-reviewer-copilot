@@ -1,0 +1,66 @@
+{
+  "$schema_note": "Flat per-receipt format. Each item names a single receipt to grade. Compatible with eval.harness which auto-detects this shape. receipt_id is informational only; matching uses submission_dir + filename.",
+  "cases": [
+    {
+      "receipt_id": "01_clean_denver/01_united_airlines",
+      "submission_dir": "01_clean_denver",
+      "filename": "01_united_airlines.pdf",
+      "expected_verdict": "compliant",
+      "expected_category": "air_travel",
+      "expected_policy_refs": [],
+      "expected_fields": ["merchant", "total", "transaction_date", "category"]
+    },
+    {
+      "receipt_id": "01_clean_denver/02_marriott_denver",
+      "submission_dir": "01_clean_denver",
+      "filename": "02_marriott_denver.pdf",
+      "expected_verdict": "compliant",
+      "expected_category": "lodging",
+      "expected_fields": ["merchant", "total", "category"]
+    },
+    {
+      "receipt_id": "01_clean_denver/04_dinner_mercantile",
+      "submission_dir": "01_clean_denver",
+      "filename": "04_dinner_mercantile.pdf",
+      "expected_verdict": "compliant",
+      "expected_category": "meal_dinner",
+      "expected_fields": ["merchant", "total", "category"]
+    },
+    {
+      "receipt_id": "02_clean_boston_conf/01_conference_registration",
+      "submission_dir": "02_clean_boston_conf",
+      "filename": "01_conference_registration.pdf",
+      "expected_verdict": "compliant",
+      "expected_category": "conference_registration",
+      "expected_fields": ["merchant", "total", "category"]
+    },
+    {
+      "receipt_id": "02_clean_boston_conf/03_hilton_back_bay",
+      "submission_dir": "02_clean_boston_conf",
+      "filename": "03_hilton_back_bay.pdf",
+      "expected_verdict": "compliant",
+      "expected_category": "lodging",
+      "expected_fields": ["merchant", "total", "category"]
+    },
+    {
+      "receipt_id": "03_dinner_over_cap/04_dinner_alinea",
+      "submission_dir": "03_dinner_over_cap",
+      "filename": "04_dinner_alinea.pdf",
+      "expected_verdict": "flagged",
+      "expected_category": "meal_dinner",
+      "expected_policy_refs": ["TEP-001"],
+      "expected_failure_reason": "meal cap exceeded",
+      "expected_fields": ["merchant", "total", "category"]
+    },
+    {
+      "receipt_id": "04_alcohol_solo_travel/05_dinner_franklin",
+      "submission_dir": "04_alcohol_solo_travel",
+      "filename": "05_dinner_franklin.pdf",
+      "expected_verdict": "flagged",
+      "expected_category": "meal_dinner",
+      "expected_policy_refs": ["TEP-001"],
+      "expected_failure_reason": "alcohol without business attendees",
+      "expected_fields": ["merchant", "total", "category", "alcohol_present"]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+# Render Blueprint for the Northwind Reviewer Copilot.
+#
+# Deploys the full stack with a single click:
+#   * northwind-db        — managed Postgres 16 (pgvector enabled by /admin/seed)
+#   * northwind-api       — FastAPI backend (Docker)
+#   * northwind-web       — Next.js frontend (Docker, NEXT_PUBLIC_API_BASE
+#                           baked in at build time pointing at northwind-api)
+#
+# After the Blueprint is created in Render:
+#   1. In the dashboard, open `northwind-api` → Environment and set
+#      `OPENAI_API_KEY` (marked `sync: false` here so it's never committed).
+#      Leave it blank to run the deterministic / offline fallback path.
+#   2. Wait for both web services to go live, then:
+#        curl -X POST https://northwind-api.onrender.com/admin/seed
+#   3. Open https://northwind-web.onrender.com
+#
+# If Render appends a numeric suffix to a service name (rare, only when the
+# name is already taken globally), update the matching `value:` /
+# `CORS_ORIGINS` entries below to keep the URLs in sync.
+
+databases:
+  - name: northwind-db
+    plan: free
+    databaseName: northwind
+    user: northwind
+    postgresMajorVersion: "16"
+    # `pgvector` extension is created idempotently by policy_loader at seed time
+    # (CREATE EXTENSION IF NOT EXISTS vector). No manual psql step required.
+
+services:
+  # ---------------- Backend (FastAPI) -----------------------------------
+  - type: web
+    name: northwind-api
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: northwind-db
+          property: connectionString
+      - key: CORS_ORIGINS
+        value: https://northwind-web.onrender.com
+      - key: OPENAI_API_KEY
+        sync: false   # set in the dashboard; blank → offline / deterministic mode
+      - key: OPENAI_EXTRACTION_MODEL
+        value: gpt-4o-mini
+      - key: OPENAI_ADJUDICATION_MODEL
+        value: gpt-4o-mini
+      - key: OPENAI_QA_MODEL
+        value: gpt-4o-mini
+      - key: OPENAI_EMBEDDING_MODEL
+        value: text-embedding-3-small
+
+  # ---------------- Frontend (Next.js standalone) -----------------------
+  - type: web
+    name: northwind-web
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    # Build-time argument so NEXT_PUBLIC_API_BASE is baked into the static
+    # JS bundle. Render passes envVars marked `buildArg: true` to docker build.
+    envVars:
+      - key: NEXT_PUBLIC_API_BASE
+        value: https://northwind-api.onrender.com

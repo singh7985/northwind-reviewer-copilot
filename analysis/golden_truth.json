@@ -1,0 +1,126 @@
+{
+  "_note": "Manual golden truth produced from hand-reading every PDF. This is the human reference for the eval harness. Verdicts use the locked 4-state taxonomy: compliant / flagged / rejected / needs_human_review.",
+  "submissions": [
+    {
+      "dir": "01_clean_denver",
+      "employee": "Sarah Chen",
+      "trip_purpose": "Quarterly client review with Mountain Freight Partners in Denver",
+      "expected_status": "ready_to_approve",
+      "expected_total_claimed": 1027.43,
+      "expected_total_reimbursable": 1027.43,
+      "expected_total_non_reimbursable": 0.0,
+      "receipts": [
+        { "file": "01_united_airlines.pdf", "category": "air_travel", "verdict": "compliant", "expected_findings": [] },
+        { "file": "02_marriott_denver.pdf", "category": "lodging", "verdict": "compliant", "expected_findings": [] },
+        { "file": "03_uber_to_hotel.pdf", "category": "ground_rideshare", "verdict": "compliant", "expected_findings": [] },
+        { "file": "04_dinner_mercantile.pdf", "category": "meal_dinner", "verdict": "compliant", "expected_findings": [] },
+        { "file": "05_breakfast_snooze.pdf", "category": "meal_breakfast", "verdict": "compliant", "expected_findings": [] },
+        { "file": "06_lunch_sushiden.pdf", "category": "meal_lunch", "verdict": "compliant", "expected_findings": [] },
+        { "file": "07_dinner_avanti.pdf", "category": "meal_dinner", "verdict": "compliant", "expected_findings": [] },
+        { "file": "08_uber_to_airport.pdf", "category": "ground_rideshare", "verdict": "compliant", "expected_findings": [] }
+      ]
+    },
+    {
+      "dir": "02_clean_boston_conf",
+      "employee": "Marcus Rivera",
+      "trip_purpose": "AWS re:Inforce 2025 conference attendance",
+      "expected_status": "ready_to_approve",
+      "expected_total_claimed": 3418.05,
+      "expected_total_reimbursable": 3418.05,
+      "expected_total_non_reimbursable": 0.0,
+      "receipts": [
+        { "file": "01_conference_registration.pdf", "category": "conference_registration", "verdict": "compliant", "expected_findings": [] },
+        { "file": "02_delta_flight.pdf", "category": "air_travel", "verdict": "compliant", "expected_findings": [], "note": "Premium Select on 6h48m flight — explicitly allowed by TEP-005 §2.2 (≥6h)." },
+        { "file": "03_hilton_back_bay.pdf", "category": "lodging", "verdict": "compliant", "expected_findings": [], "note": "$278/night within Tier 1 cap." },
+        { "file": "04_lyft_to_hotel.pdf", "category": "ground_rideshare", "verdict": "compliant", "expected_findings": [] },
+        { "file": "05_lunch_saltie.pdf", "category": "meal_lunch", "verdict": "compliant", "expected_findings": [] },
+        { "file": "06_dinner_eastern.pdf", "category": "meal_dinner", "verdict": "compliant", "expected_findings": [], "note": "3 NW employees split-check, no external clients — per-person $67.50 under cap." },
+        { "file": "07_lyft_to_airport.pdf", "category": "ground_rideshare", "verdict": "compliant", "expected_findings": [] }
+      ]
+    },
+    {
+      "dir": "03_dinner_over_cap",
+      "employee": "Priya Patel",
+      "trip_purpose": "Vendor site visit at Midwest Distribution Center, Chicago",
+      "expected_status": "needs_review",
+      "expected_total_claimed": 873.40,
+      "expected_total_reimbursable": 800.20,
+      "expected_total_non_reimbursable": 73.20,
+      "_reimbursement_note": "Alinea $148.20 capped to $75 dinner cap; $73.20 non-reimbursable.",
+      "receipts": [
+        { "file": "01_american_flight.pdf", "category": "air_travel", "verdict": "compliant", "expected_findings": [] },
+        { "file": "02_hyatt_chicago.pdf", "category": "lodging", "verdict": "compliant", "expected_findings": [] },
+        { "file": "03_uber_to_hotel.pdf", "category": "ground_rideshare", "verdict": "compliant", "expected_findings": [] },
+        {
+          "file": "04_dinner_alinea.pdf",
+          "category": "meal_dinner",
+          "verdict": "flagged",
+          "expected_findings": [{ "rule_id": "meal_cap_exceeded", "severity": "flag" }],
+          "note": "$148.20 grand total vs $75 dinner cap. Receipt explicitly states 'Solo diner. No external attendees' — no client-entertainment justification possible."
+        },
+        { "file": "05_breakfast_wildberry.pdf", "category": "meal_breakfast", "verdict": "compliant", "expected_findings": [] },
+        { "file": "06_lyft_to_airport.pdf", "category": "ground_rideshare", "verdict": "compliant", "expected_findings": [] }
+      ]
+    },
+    {
+      "dir": "04_alcohol_solo_travel",
+      "employee": "James Walker",
+      "trip_purpose": "Solo carrier research trip — meeting potential regional partners in Austin",
+      "expected_status": "has_rejections",
+      "expected_total_claimed": 905.45,
+      "expected_total_reimbursable": 879.45,
+      "expected_total_non_reimbursable": 26.00,
+      "_reimbursement_note": "Franklin dinner: $26 of alcohol non-reimbursable on solo travel; food portion ($46) reimbursable.",
+      "receipts": [
+        { "file": "01_southwest_flight.pdf", "category": "air_travel", "verdict": "compliant", "expected_findings": [] },
+        { "file": "02_marriott_austin.pdf", "category": "lodging", "verdict": "compliant", "expected_findings": [] },
+        { "file": "03_uber_to_hotel.pdf", "category": "ground_rideshare", "verdict": "compliant", "expected_findings": [] },
+        { "file": "04_lunch_torchys.pdf", "category": "meal_lunch", "verdict": "compliant", "expected_findings": [] },
+        {
+          "file": "05_dinner_franklin.pdf",
+          "category": "meal_dinner",
+          "verdict": "rejected",
+          "expected_findings": [{ "rule_id": "alcohol_solo_travel", "severity": "reject" }],
+          "note": "$26 alcohol (hefeweizen $9 + Real Ale $9 + Texas Red wine $8) on a trip whose purpose contains 'solo'."
+        },
+        { "file": "06_breakfast_jos.pdf", "category": "meal_breakfast", "verdict": "compliant", "expected_findings": [] },
+        { "file": "07_lyft_to_airport.pdf", "category": "ground_rideshare", "verdict": "compliant", "expected_findings": [] }
+      ]
+    },
+    {
+      "dir": "05_receipt_mismatch",
+      "employee": "Linda Foster",
+      "trip_purpose": "Quarterly QBR with PNW client account (Pacific Coast Distributors)",
+      "expected_status": "needs_review",
+      "expected_total_claimed": 1321.90,
+      "expected_total_reimbursable": 1243.90,
+      "expected_total_non_reimbursable": 78.00,
+      "_reimbursement_note": "Hyatt Seattle $389/night × 2 = $778 over Tier 1 nightly cap by $39 each night = $78 non-reimbursable.",
+      "receipts": [
+        { "file": "01_alaska_flight.pdf", "category": "air_travel", "verdict": "compliant", "expected_findings": [] },
+        {
+          "file": "02_hyatt_seattle.pdf",
+          "category": "lodging",
+          "verdict": "flagged",
+          "expected_findings": [
+            { "rule_id": "lodging_over_cap", "severity": "flag" },
+            { "rule_id": "booking_off_tool", "severity": "info" }
+          ],
+          "note": "$389/night room over Seattle Tier 1 cap ($350). Receipt explicitly notes 'Booked outside Concur Travel tool; no corporate-rate adjustment applied.'"
+        },
+        { "file": "03_uber_to_hotel.pdf", "category": "ground_rideshare", "verdict": "compliant", "expected_findings": [] },
+        { "file": "04_lunch_toulouse.pdf", "category": "meal_lunch", "verdict": "compliant", "expected_findings": [] },
+        { "file": "05_dinner_pinkdoor.pdf", "category": "meal_dinner", "verdict": "compliant", "expected_findings": [] },
+        { "file": "06_lyft_to_airport.pdf", "category": "ground_rideshare", "verdict": "compliant", "expected_findings": [] }
+      ]
+    }
+  ],
+  "headline_counts": {
+    "total_receipts": 31,
+    "compliant": 27,
+    "flagged": 3,
+    "rejected": 1,
+    "needs_human_review": 0
+  },
+  "oos_q&a_check": "Append synthetic low-confidence cases to the harness — e.g., a stripped-text receipt — to verify the needs_human_review escalation path actually fires (golden truth has 0 of these by construction)."
+}

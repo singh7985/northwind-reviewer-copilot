@@ -1,0 +1,37 @@
+{
+  "$schema_note": "Adversarial fixtures designed to probe weak failure modes. Each item is uploaded into a single ad-hoc submission. expected_verdict allows multiple acceptable answers; we measure 'any-match' agreement.",
+  "trip_purpose": "Adversarial harness probes",
+  "cases": [
+    {
+      "receipt_id": "adv/01_blurry_receipt",
+      "filename": "01_blurry_receipt.txt",
+      "expected_verdict_any_of": ["needs_human_review", "rejected"],
+      "expected_extraction_issues_any_of": ["unreadable", "low_quality"],
+      "rationale": "Empty/illegible receipt must not silently produce 'compliant'."
+    },
+    {
+      "receipt_id": "adv/02_missing_line_items",
+      "filename": "02_missing_line_items.txt",
+      "expected_verdict_any_of": ["needs_human_review", "flagged"],
+      "expected_extraction_issues_any_of": ["missing_itemization", "partial"],
+      "rationale": "Total-only receipt over the meal cap should not produce a clean compliant pass without itemisation."
+    },
+    {
+      "receipt_id": "adv/03_contradictory_evidence",
+      "filename": "03_contradictory_evidence.txt",
+      "expected_verdict_any_of": ["needs_human_review", "flagged"],
+      "rationale": "Inconsistent claim amount vs. receipt total must surface ambiguity rather than be silently accepted."
+    },
+    {
+      "receipt_id": "adv/04_mixed_format_taxi",
+      "filename": "04_mixed_format_taxi.txt",
+      "expected_verdict_any_of": ["compliant", "flagged"],
+      "rationale": "Reasonable taxi receipt in a mixed-format submission should still extract & classify correctly (the mix itself is tested by uploading several formats together)."
+    }
+  ],
+  "irrelevant_policy_questions": [
+    "What is Northwind's policy on submarine purchases for travel?",
+    "Does TEP-001 cover lunar travel expenses?",
+    "What is the per diem when commuting to Atlantis?"
+  ]
+}

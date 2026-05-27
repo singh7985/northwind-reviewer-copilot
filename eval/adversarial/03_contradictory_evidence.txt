@@ -1,0 +1,12 @@
+Acme Cafe
+Date: 2026-03-12
+1x Coffee  4.50
+1x Muffin  3.75
+Subtotal:  8.25
+Tax:       0.66
+Total:    18.91
+Tip:       2.00
+
+Note: handwritten "business lunch with 4 clients" on margin, but
+no attendee names recorded. Amount on receipt is $18.91 but the
+employee's claim form lists $189.10 for this same receipt.

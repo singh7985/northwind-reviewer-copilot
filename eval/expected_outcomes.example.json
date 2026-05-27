@@ -1,0 +1,79 @@
+{
+  "$schema_note": "Drop your held-out set in this shape. Verdicts: compliant | flagged | rejected | needs_human_review",
+  "cases": [
+    {
+      "submission_dir": "01_clean_denver",
+      "expected_verdicts": {
+        "01_united_airlines.pdf": "compliant",
+        "02_marriott_denver.pdf": "compliant",
+        "03_uber_to_hotel.pdf": "compliant",
+        "04_dinner_mercantile.pdf": "compliant",
+        "05_breakfast_snooze.pdf": "compliant",
+        "06_lunch_sushiden.pdf": "compliant",
+        "07_dinner_avanti.pdf": "compliant",
+        "08_uber_to_airport.pdf": "compliant"
+      },
+      "expected_categories": {
+        "01_united_airlines.pdf": "air_travel",
+        "02_marriott_denver.pdf": "lodging",
+        "03_uber_to_hotel.pdf": "ground_rideshare",
+        "04_dinner_mercantile.pdf": "meal_dinner",
+        "05_breakfast_snooze.pdf": "meal_breakfast",
+        "06_lunch_sushiden.pdf": "meal_lunch",
+        "07_dinner_avanti.pdf": "meal_dinner",
+        "08_uber_to_airport.pdf": "ground_rideshare"
+      },
+      "expected_refs": {}
+    },
+    {
+      "submission_dir": "02_clean_boston_conf",
+      "expected_verdicts": {
+        "01_conference_registration.pdf": "compliant",
+        "02_delta_flight.pdf": "compliant",
+        "03_hilton_back_bay.pdf": "compliant",
+        "04_lyft_to_hotel.pdf": "compliant",
+        "05_lunch_saltie.pdf": "compliant",
+        "06_dinner_eastern.pdf": "compliant",
+        "07_lyft_to_airport.pdf": "compliant"
+      },
+      "expected_categories": {
+        "01_conference_registration.pdf": "conference_registration",
+        "02_delta_flight.pdf": "air_travel",
+        "03_hilton_back_bay.pdf": "lodging",
+        "05_lunch_saltie.pdf": "meal_lunch",
+        "06_dinner_eastern.pdf": "meal_dinner"
+      },
+      "expected_refs": {}
+    },
+    {
+      "submission_dir": "03_dinner_over_cap",
+      "expected_verdicts": {
+        "04_dinner_alinea.pdf": "flagged"
+      },
+      "expected_categories": {
+        "04_dinner_alinea.pdf": "meal_dinner"
+      },
+      "expected_refs": {
+        "04_dinner_alinea.pdf": ["TEP-002 §2"]
+      }
+    },
+    {
+      "submission_dir": "04_alcohol_solo_travel",
+      "expected_verdicts": {
+        "05_dinner_franklin.pdf": "flagged"
+      },
+      "expected_categories": {
+        "05_dinner_franklin.pdf": "meal_dinner"
+      },
+      "expected_refs": {
+        "05_dinner_franklin.pdf": ["TEP-003 §3.1"]
+      }
+    },
+    {
+      "submission_dir": "05_receipt_mismatch",
+      "expected_verdicts": {},
+      "expected_categories": {},
+      "expected_refs": {}
+    }
+  ]
+}

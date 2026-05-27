@@ -1,0 +1,6 @@
+Yellow Cab Co.
+Date: 2026-03-12
+Trip: SFO -> Downtown
+Fare: $42.10
+Tip:   8.42
+Total: $50.52
