@@ -13,11 +13,17 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY frontend/ ./
 # NEXT_PUBLIC_* values are baked into the static JS bundle at build time,
 # so this must be a build arg (not just a runtime env var) for the deployed
-# frontend to talk to the right backend URL.
-ARG NEXT_PUBLIC_API_BASE=http://localhost:8000
+# frontend to talk to the right backend URL. The default points at the
+# production Render API; local docker builds can override with
+# --build-arg NEXT_PUBLIC_API_BASE=http://localhost:8000.
+ARG NEXT_PUBLIC_API_BASE=https://northwind-api-w34f.onrender.com
 ENV NEXT_PUBLIC_API_BASE=$NEXT_PUBLIC_API_BASE \
     NEXT_TELEMETRY_DISABLED=1
-RUN npm run build
+# Cache-bust marker — bump when you need to force a fresh JS bundle build
+# (e.g. after changing NEXT_PUBLIC_API_BASE). Render's docker layer cache
+# keys off the ARG value above, but bumping this is a belt-and-braces fix.
+ARG BUILD_REV=2
+RUN echo "build_rev=$BUILD_REV api_base=$NEXT_PUBLIC_API_BASE" && npm run build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
