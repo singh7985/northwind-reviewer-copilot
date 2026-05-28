@@ -69,4 +69,4 @@ services:
     # JS bundle. Render passes envVars marked `buildArg: true` to docker build.
     envVars:
       - key: NEXT_PUBLIC_API_BASE
-        value: https://northwind-api.onrender.com
+        value: https://northwind-api-w34f.onrender.com
