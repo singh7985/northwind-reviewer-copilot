@@ -27,17 +27,18 @@ RUN echo "build_rev=$BUILD_REV api_base=$NEXT_PUBLIC_API_BASE" && npm run build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
+# Don't hardcode PORT — Render (and most PaaS providers) inject $PORT at
+# runtime, and Next.js' standalone server reads it via process.env.PORT.
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
-    PORT=3000
+    HOSTNAME=0.0.0.0
 
 # Copy only what's needed at runtime
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
+# Document the default port for local docker runs; Render overrides via $PORT.
 EXPOSE 3000
-HEALTHCHECK --interval=10s --timeout=3s --start-period=20s --retries=5 \
-  CMD wget -qO- http://localhost:3000/ >/dev/null 2>&1 || exit 1
 
 CMD ["node", "server.js"]
