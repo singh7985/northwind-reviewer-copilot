@@ -49,44 +49,57 @@ while their disagreement rate with the system stays under ~10%.
 
 ```mermaid
 flowchart TB
-    subgraph Client["🖥️  Browser"]
-        UI["Next.js 14 UI<br/>Home · Submission · History · Policy Q&A<br/><i>per-receipt 'Show why' reveals every clause</i>"]
+    subgraph Client["Browser"]
+        UI["Next.js 14 UI<br/>Home · Submission · History · Policy QA"]
     end
 
-    subgraph API["⚙️  FastAPI backend"]
+    subgraph API["FastAPI backend"]
         direction TB
         Routes["/submissions  /receipts  /qa  /overrides  /admin"]
         subgraph Pipeline["pipeline.process_receipt"]
             direction TB
-            S1["1 · extract_receipt<br/>PDF (pypdf) · image (gpt-4o-mini vision) · text"]
-            S2["2 · run_rules<br/><b>deterministic engine</b> · cap / alcohol / mismatch"]
+            S1["1 · extract_receipt<br/>PDF pypdf · image gpt-4o-mini vision · text"]
+            S2["2 · run_rules<br/>deterministic engine · cap · alcohol · mismatch"]
             S3["3 · retrieve<br/>pgvector + keyword · family-routed top-k"]
             S4["4 · adjudicate<br/>LLM · json_schema · quote-validated"]
-            S5["5 · post-checks<br/>confidence gate · <b>never override deterministic reject</b>"]
+            S5["5 · post-checks<br/>confidence gate · never override deterministic reject"]
             S1 --> S2 --> S3 --> S4 --> S5
         end
         Routes --> Pipeline
     end
 
-    subgraph DB["🗄️  Postgres 16 + pgvector"]
+    subgraph DB["Postgres 16 + pgvector"]
         direction TB
         T1["employees · submissions · receipts · overrides"]
-        T2["policy_clauses (Vector 1536d) · policy_qa"]
-        T3["receipts.original_verdict / _rationale / _amount<br/><i>immutable audit trace · never mutated by overrides</i>"]
+        T2["policy_clauses Vector 1536d · policy_qa"]
+        T3["receipts.original_verdict / _rationale / _amount<br/>immutable audit trace · never mutated by overrides"]
     end
 
-    subgraph LLM["🤖  OpenAI"]
-        E["text-embedding-3-small<br/>(1536d)"]
-        M["gpt-4o-mini<br/>extraction · adjudication · Q&A"]
+    subgraph LLM["OpenAI"]
+        E["text-embedding-3-small<br/>1536 dims"]
+        M["gpt-4o-mini<br/>extraction · adjudication · QA"]
     end
 
-    UI -->|"REST JSON + multipart"| Routes
+    UI -->|REST JSON + multipart| Routes
     S1 -.->|vision| M
     S3 -.->|embed query| E
-    S4 -.->|JSON schema| M
-    Pipeline -->|"SQLAlchemy 2.0"| DB
+    S4 -.->|json schema| M
+    Pipeline -->|SQLAlchemy 2.0| DB
     DB -.->|cosine search| S3
 ```
+
+**Stack:** Next.js 14 + Tailwind / FastAPI + Pydantic 2 / Postgres 16 + pgvector /
+`gpt-4o-mini` for extraction, adjudication, and Q&A (all with `response_format:
+json_schema`) / `text-embedding-3-small` (1536d) for clause retrieval.
+
+**Read this diagram top-to-bottom for the request lifecycle, and notice the dotted
+LLM edges:** the model is called only at three well-defined points (image OCR,
+embedding, adjudication) — everything else is deterministic Python the reviewer
+can audit by reading 200 lines of code.
+
+---
+
+## 3. Why this architecture
 
 **Stack:** Next.js 14 + Tailwind / FastAPI + Pydantic 2 / Postgres 16 + pgvector /
 `gpt-4o-mini` for extraction, adjudication, and Q&A (all with `response_format:
