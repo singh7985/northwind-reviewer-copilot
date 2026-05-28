@@ -99,6 +99,17 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+def root():
+    """Friendly landing payload so the bare URL confirms the service is up."""
+    return {
+        "service": "Northwind Expense Pre-Review API",
+        "version": "0.1.0",
+        "docs": "/docs",
+        "health": "/health",
+    }
+
+
 @app.get("/health")
 def health():
     return {
