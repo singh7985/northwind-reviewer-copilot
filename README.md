@@ -5,6 +5,20 @@ Every verdict is grounded in a quoted policy clause, every reviewer override is
 auditable, and the system refuses to answer when evidence is weak. Built for
 the AI Engineer case study; designed as if reviewers actually had to use it.
 
+### 🔴 Live demo
+
+| What | Link |
+|---|---|
+| **UI** (reviewer dashboard) | <https://northwind-web.onrender.com> |
+| **API** (interactive Swagger) | <https://northwind-api-w34f.onrender.com/docs> |
+| **Health** (LLM wiring + models) | <https://northwind-api-w34f.onrender.com/health> |
+| Repo | <https://github.com/singh7985/northwind-reviewer-copilot> |
+
+> Hosted on Render's free tier — the first request after ~15 min idle wakes the
+> container and takes 15–30 seconds. Subsequent requests are instant. If the
+> UI looks blank on first load, wait, hard-refresh once, and the seeded
+> employees + the 5 case-study submissions will appear.
+
 ---
 
 ## 1. Problem framing

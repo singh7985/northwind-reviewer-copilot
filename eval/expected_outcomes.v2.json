@@ -56,10 +56,10 @@
       "receipt_id": "04_alcohol_solo_travel/05_dinner_franklin",
       "submission_dir": "04_alcohol_solo_travel",
       "filename": "05_dinner_franklin.pdf",
-      "expected_verdict": "flagged",
+      "expected_verdict": "rejected",
       "expected_category": "meal_dinner",
       "expected_policy_refs": ["TEP-001"],
-      "expected_failure_reason": "alcohol without business attendees",
+      "expected_failure_reason": "alcohol on solo travel — deterministic reject per analysis/golden_truth.json",
       "expected_fields": ["merchant", "total", "category", "alcohol_present"]
     }
   ]
